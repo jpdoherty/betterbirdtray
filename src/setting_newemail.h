@@ -21,7 +21,7 @@ class Setting_NewEmail
 
         QString menuentry() const;
 
-        // Convert into Thunderbird command line arguments
+        // Convert into Betterbird command line arguments
         QString asArgs();
 
     private:

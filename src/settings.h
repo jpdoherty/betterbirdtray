@@ -55,44 +55,44 @@ class Settings
         // Opacity level for the tray icon when unread email is present (0.0-1.0)
         double          mUnreadOpacityLevel;
 
-        // The command to start Thunderbird. The first element is the executable to launch.
-        QStringList mThunderbirdCmdLine;
+        // The command to start Betterbird. The first element is the executable to launch.
+        QStringList mBetterbirdCmdLine;
 
-        // Thunderbird window match
-        QString mThunderbirdWindowMatch;
+        // Betterbird window match
+        QString mBetterbirdWindowMatch;
 
-        // Whether to show/hide Thunderbird on button click
-        bool    mShowHideThunderbird;
+        // Whether to show/hide Betterbird on button click
+        bool    mShowHideBetterbird;
 
-        // Whether to hide Thunderbird when its window is minimized
+        // Whether to hide Betterbird when its window is minimized
         bool    mHideWhenMinimized;
 
-        // Whether to launch Thunderbird when the app starts
-        bool    mLaunchThunderbird;
+        // Whether to launch Betterbird when the app starts
+        bool    mLaunchBetterbird;
 
-        // The delay in seconds to launch Thunderbird
-        int     mLaunchThunderbirdDelay;
+        // The delay in seconds to launch Betterbird
+        int     mLaunchBetterbirdDelay;
 
-        // Whether to hide Thunderbird window after starting
+        // Whether to hide Betterbird window after starting
         bool    mHideWhenStarted;
 
-        // Whether to quit Thunderbird when the app quits
-        bool    mExitThunderbirdWhenQuit;
+        // Whether to quit Betterbird when the app quits
+        bool    mExitBetterbirdWhenQuit;
 
-        // Whether to restart Thunderbird if it was closed
-        bool    mRestartThunderbird;
+        // Whether to restart Betterbird if it was closed
+        bool    mRestartBetterbird;
 
-        // Whether to hide Thunderbird window after restarting
+        // Whether to hide Betterbird window after restarting
         bool    mHideWhenRestarted;
 
-        // Whether to start Thunderbird if it is closed and the user clicks on the tray icon
-        bool    startClosedThunderbird;
+        // Whether to start Betterbird if it is closed and the user clicks on the tray icon
+        bool    startClosedBetterbird;
     
-        // Whether to hide Thunderbird window after starting it via the system tray icon
+        // Whether to hide Betterbird window after starting it via the system tray icon
         bool    hideWhenStartedManually;
 
-        // Whether to monitor Thunderbird running
-        bool    mMonitorThunderbirdWindow;
+        // Whether to monitor Betterbird running
+        bool    mMonitorBetterbirdWindow;
 
         // Whether to use alpha transition when blinking
         bool    mBlinkingUseAlphaTransition;
@@ -115,12 +115,12 @@ class Settings
         bool    ignoreUnreadCountOnStart;
         
         /**
-         * Ignore the number of unread emails when showing Thunderbird.
+         * Ignore the number of unread emails when showing Betterbird.
          */
         bool    ignoreUnreadCountOnShow;
     
         /**
-         * Ignore the number of unread emails when hiding Thunderbird.
+         * Ignore the number of unread emails when hiding Betterbird.
          */
         bool    ignoreUnreadCountOnHide;
         
@@ -165,11 +165,11 @@ class Settings
         void    load();
         
         /**
-         * @param executable The actual executable necessary to start (not necessary Thunderbird itself - may be shell or script).
-         * @param arguments The arguments necessary to start Thunderbird.
+         * @param executable The actual executable necessary to start (not necessary Betterbird itself - may be shell or script).
+         * @param arguments The arguments necessary to start Betterbird.
          * @return true if executable/arguments is set, false if error
          */
-        bool getStartThunderbirdCmdline( QString& executable, QStringList &arguments );
+        bool getStartBetterbirdCmdline( QString& executable, QStringList &arguments );
         
         /**
          * @return The icon to use for the system tray.

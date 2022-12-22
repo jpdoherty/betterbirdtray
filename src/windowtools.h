@@ -10,7 +10,7 @@ class WindowTools : public QObject
     public:
         static WindowTools * create();
 
-        // Looks up and remembers Thunderbird window handle. Returns true if found,
+        // Looks up and remembers Betterbird window handle. Returns true if found,
         // false if not found.
         virtual bool    lookup() = 0;
 
@@ -26,17 +26,17 @@ class WindowTools : public QObject
         // Closes the application via WM_CLOSE or similar
         virtual bool    closeWindow() = 0;
 
-        // Return true if Thunderbird window is valid (hidden or shown)
+        // Return true if Betterbird window is valid (hidden or shown)
         virtual bool    isValid() = 0;
 
     signals:
         /**
-         * Called when the Thunderbird window is hidden.
+         * Called when the Betterbird window is hidden.
          */
         void onWindowHidden();
     
         /**
-         * Called when the Thunderbird window is shown.
+         * Called when the Betterbird window is shown.
          */
         void onWindowShown();
         

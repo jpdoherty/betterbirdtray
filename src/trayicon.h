@@ -35,14 +35,14 @@ class TrayIcon : public QSystemTrayIcon
         UnreadMonitor* getUnreadMonitor() const;
     
         /**
-         * Hide the Thunderbird window.
+         * Hide the Betterbird window.
          */
-        void hideThunderbird();
+        void hideBetterbird();
         
         /**
-         * Show the Thunderbird window.
+         * Show the Betterbird window.
          */
-        void showThunderbird();
+        void showBetterbird();
 
     signals:
         void    settingsChanged();
@@ -87,20 +87,20 @@ class TrayIcon : public QSystemTrayIcon
 
         void    actionSystrayIconActivated( QSystemTrayIcon::ActivationReason reason );
 
-        void    startThunderbird();
+        void    startBetterbird();
         
         /**
-         * Callback if Thunderbird fails to start.
+         * Callback if Betterbird fails to start.
          * @param error The reason for the start failure.
          */
-        void    tbProcessError( QProcess::ProcessError error);
-        void    tbProcessFinished( int exitCode, QProcess::ExitStatus exitStatus );
+        void    bbProcessError( QProcess::ProcessError error);
+        void    bbProcessFinished( int exitCode, QProcess::ExitStatus exitStatus );
 #ifdef Q_OS_WIN
         /**
-         * Callback if the Thunderbird updater exits.
+         * Callback if the Betterbird updater exits.
          * @param exitReason The reason for the exit.
          */
-        void    tbUpdaterProcessFinished(const ProcessHandle::ExitReason& exitReason);
+        void    bbUpdaterProcessFinished(const ProcessHandle::ExitReason& exitReason);
 #endif /* Q_OS_WIN */
         /**
          * Callback that is called when we are about to quit.
@@ -116,14 +116,14 @@ class TrayIcon : public QSystemTrayIcon
         void    onAutoUpdateCheckFinished(bool foundUpdate, const QString& errorMessage);
         
         /**
-         * Called when the Thunderbird window is shown.
+         * Called when the Betterbird window is shown.
          */
-        void    onThunderbirdWindowShown();
+        void    onBetterbirdWindowShown();
         
         /**
-         * Called when the Thunderbird window is hidden.
+         * Called when the Betterbird window is hidden.
          */
-        void    onThunderbirdWindowHidden();
+        void    onBetterbirdWindowHidden();
 
     private:
         void    createMenu();
@@ -163,8 +163,8 @@ class TrayIcon : public QSystemTrayIcon
         unsigned int    mUnreadCounter;
         QColor          mUnreadColor;
 
-        // Show/hide Thunderbird menu item (we modify its text)
-        QAction *       mMenuShowHideThunderbird;
+        // Show/hide Betterbird menu item (we modify its text)
+        QAction *       mMenuShowHideBetterbird;
 
         // Ignore unread emails item (we modify its text) - only if we have this functionality
         QAction *       mMenuIgnoreUnreads;
@@ -179,18 +179,18 @@ class TrayIcon : public QSystemTrayIcon
         // State checking timer (once a second)
         QTimer          mStateTimer;
 
-        // Time when Thunderbird could be started
-        QDateTime       mThunderbirdStartTime;
+        // Time when Betterbird could be started
+        QDateTime       mBetterbirdStartTime;
 
-        // If true, Thunderbird window existed anytime before, but not necessarily now
+        // If true, Betterbird window existed anytime before, but not necessarily now
         // (we use this to distinguish between start and restart)
-        bool            mThunderbirdWindowExisted;
+        bool            mBetterbirdWindowExisted;
 
-        // If true, Thunderbird window exists right now
-        bool            mThunderbirdWindowExists;
+        // If true, Betterbird window exists right now
+        bool            mBetterbirdWindowExists;
 
-        // If true, it will hide Thunderbird window as soon as its shown
-        bool            mThunderbirdWindowHide;
+        // If true, it will hide Betterbird window as soon as its shown
+        bool            mBetterbirdWindowHide;
 
         /**
          * The number of unread emails that Birdtray is ignoring.
@@ -203,10 +203,10 @@ class TrayIcon : public QSystemTrayIcon
         // Cached last drawn icon
         QImage          mLastDrawnIcon;
 
-        // Thunderbird process which we have started. This can be nullptr if Thunderbird
+        // Betterbird process which we have started. This can be nullptr if Betterbird
         // was started before Birdtray (thus our process would just activate it and exit)
         // Thus checking this pointer for null doesn't mean TB is not started.
-        QProcess    *   mThunderbirdProcess;
+        QProcess    *   mBetterbirdProcess;
 
         // System tray context menu. Once set, it remains there, so we have to modify existing one
         QMenu       *   mSystrayMenu;
@@ -217,8 +217,8 @@ class TrayIcon : public QSystemTrayIcon
         DialogSettings* settingsDialog = nullptr;
 
 #ifdef Q_OS_WIN
-        // A reference to a Thunderbird updater process.
-        ProcessHandle* mThunderbirdUpdaterProcess;
+        // A reference to a Betterbird updater process.
+        ProcessHandle* mBetterbirdUpdaterProcess;
 #endif /* Q_OS_WIN */
         
         /**

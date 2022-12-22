@@ -9,8 +9,8 @@
         <translation>PortugueseBR</translation>
     </message>
     <message>
-        <source>A free system tray notification for new mail for Thunderbird.</source>
-        <translation>Notificação de novos e-mails do Thunderbird direto da Área de Notificação.</translation>
+        <source>A free system tray notification for new mail for Betterbird.</source>
+        <translation>Notificação de novos e-mails do Betterbird direto da Área de Notificação.</translation>
     </message>
     <message>
         <source>Windows integration</source>

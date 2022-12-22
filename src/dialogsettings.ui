@@ -380,14 +380,14 @@
           <item>
            <widget class="QCheckBox" name="ignoreMailCountOnHideBox">
             <property name="text">
-             <string>When hiding Thunderbird</string>
+             <string>When hiding Betterbird</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QCheckBox" name="ignoreMailCountOnShowBox">
             <property name="text">
-             <string>When showing Thunderbird</string>
+             <string>When showing Betterbird</string>
             </property>
            </widget>
           </item>
@@ -431,16 +431,16 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QCheckBox" name="boxLaunchThunderbirdAtStart">
+             <widget class="QCheckBox" name="boxLaunchBetterbirdAtStart">
               <property name="text">
-               <string>Start Thunderbird when Birdtray starts</string>
+               <string>Start Betterbird when Birdtray starts</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QSpinBox" name="spinThunderbirdStartDelay">
+             <widget class="QSpinBox" name="spinBetterbirdStartDelay">
               <property name="whatsThis">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When both Thunderbird and Birdtray are set to start with the operating system, this usually results in two copies of Thunderbird being launched. Here you can add a delay before Thunderbird is launched, to prevent this.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When both Betterbird and Birdtray are set to start with the operating system, this usually results in two copies of Betterbird being launched. Here you can add a delay before Betterbird is launched, to prevent this.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="suffix">
                <string> second delay</string>
@@ -481,21 +481,21 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
-             <widget class="QCheckBox" name="boxStopThunderbirdOnExit">
+             <widget class="QCheckBox" name="boxStopBetterbirdOnExit">
               <property name="enabled">
                <bool>true</bool>
               </property>
               <property name="text">
-               <string>Terminate Thunderbird when quitting Birdtray</string>
+               <string>Terminate Betterbird when quitting Birdtray</string>
               </property>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <widget class="QCheckBox" name="boxShowHideThunderbird">
+           <widget class="QCheckBox" name="boxShowHideBetterbird">
             <property name="text">
-             <string>Hide/show Thunderbird window when clicking on tray icon</string>
+             <string>Hide/show Betterbird window when clicking on tray icon</string>
             </property>
            </widget>
           </item>
@@ -523,31 +523,31 @@
                <bool>true</bool>
               </property>
               <property name="text">
-               <string>Hide Thunderbird window when it is minimized</string>
+               <string>Hide Betterbird window when it is minimized</string>
               </property>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <widget class="QCheckBox" name="boxMonitorThunderbirdWindow">
+           <widget class="QCheckBox" name="boxMonitorBetterbirdWindow">
             <property name="enabled">
              <bool>true</bool>
             </property>
             <property name="text">
-             <string>Show red X in tray icon if Thunderbird is not running</string>
+             <string>Show red X in tray icon if Betterbird is not running</string>
             </property>
            </widget>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
-             <widget class="QCheckBox" name="boxRestartThunderbird">
+             <widget class="QCheckBox" name="boxRestartBetterbird">
               <property name="enabled">
                <bool>true</bool>
               </property>
               <property name="text">
-               <string>Restart Thunderbird if it was closed</string>
+               <string>Restart Betterbird if it was closed</string>
               </property>
              </widget>
             </item>
@@ -579,9 +579,9 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_15">
             <item>
-             <widget class="QCheckBox" name="boxStartThunderbirdOnTrayIconClick">
+             <widget class="QCheckBox" name="boxStartBetterbirdOnTrayIconClick">
               <property name="text">
-               <string>Start Thunderbird by clicking on the tray icon if it was closed</string>
+               <string>Start Betterbird by clicking on the tray icon if it was closed</string>
               </property>
              </widget>
             </item>
@@ -746,7 +746,7 @@
           <item>
            <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1,0">
             <item row="1" column="1" colspan="2">
-             <widget class="QLineEdit" name="leThunderbirdWindowMatch"/>
+             <widget class="QLineEdit" name="leBetterbirdWindowMatch"/>
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_7">
@@ -757,7 +757,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Thunderbird command line:</string>
+               <string>Betterbird command line:</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -773,7 +773,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Thunderbird window name pattern:</string>
+               <string>Betterbird window name pattern:</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -819,9 +819,9 @@
              </widget>
             </item>
             <item row="0" column="1" colspan="2">
-             <widget class="QLineEdit" name="leThunderbirdCmdLine">
+             <widget class="QLineEdit" name="leBetterbirdCmdLine">
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the full command-line (with arguments) which will be used to start Thunderbird. Arguments are space-separated, but spaces in quotes are allowed, i.e. something like &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;quot;C:\Program Files\tb.exe&amp;quot; --profile test&lt;/span&gt; will work.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the full command-line (with arguments) which will be used to start Betterbird. Arguments are space-separated, but spaces in quotes are allowed, i.e. something like &lt;span style=&quot; font-weight:600;&quot;&gt;&amp;quot;C:\Program Files\bb.exe&amp;quot; --profile test&lt;/span&gt; will work.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
@@ -839,7 +839,7 @@
             <item>
              <widget class="QCheckBox" name="boxSupportNonNetwmCompliant">
               <property name="whatsThis">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your desktop manager is not fully NETWM compliant, you may need to check this checkbox so it can detect Thunderbird window and is able to minimise and hide it.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your desktop manager is not fully NETWM compliant, you may need to check this checkbox so it can detect Betterbird window and is able to minimise and hide it.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
                <string>Support non-NETWM compliant WMs</string>
@@ -1176,24 +1176,24 @@ p, li { white-space: pre-wrap; }
   <tabstop>ignoreMailCountOnHideBox</tabstop>
   <tabstop>ignoreMailCountOnShowBox</tabstop>
   <tabstop>leProcessRunOnCountChange</tabstop>
-  <tabstop>boxLaunchThunderbirdAtStart</tabstop>
-  <tabstop>spinThunderbirdStartDelay</tabstop>
+  <tabstop>boxLaunchBetterbirdAtStart</tabstop>
+  <tabstop>spinBetterbirdStartDelay</tabstop>
   <tabstop>boxHideWindowAtStart</tabstop>
-  <tabstop>boxStopThunderbirdOnExit</tabstop>
-  <tabstop>boxShowHideThunderbird</tabstop>
+  <tabstop>boxStopBetterbirdOnExit</tabstop>
+  <tabstop>boxShowHideBetterbird</tabstop>
   <tabstop>boxHideWhenMinimized</tabstop>
-  <tabstop>boxMonitorThunderbirdWindow</tabstop>
-  <tabstop>boxRestartThunderbird</tabstop>
+  <tabstop>boxMonitorBetterbirdWindow</tabstop>
+  <tabstop>boxRestartBetterbird</tabstop>
   <tabstop>boxHideWindowAtRestart</tabstop>
-  <tabstop>boxStartThunderbirdOnTrayIconClick</tabstop>
+  <tabstop>boxStartBetterbirdOnTrayIconClick</tabstop>
   <tabstop>boxHideWindowAfterManualStart</tabstop>
   <tabstop>boxEnableNewEmail</tabstop>
   <tabstop>treeNewEmails</tabstop>
   <tabstop>btnNewEmailAdd</tabstop>
   <tabstop>btnNewEmailEdit</tabstop>
   <tabstop>btnNewEmailDelete</tabstop>
-  <tabstop>leThunderbirdCmdLine</tabstop>
-  <tabstop>leThunderbirdWindowMatch</tabstop>
+  <tabstop>leBetterbirdCmdLine</tabstop>
+  <tabstop>leBetterbirdWindowMatch</tabstop>
   <tabstop>spinMinimumFontSize</tabstop>
   <tabstop>boxBlinkingUsesAlpha</tabstop>
   <tabstop>boxSupportNonNetwmCompliant</tabstop>
@@ -1214,7 +1214,7 @@ p, li { white-space: pre-wrap; }
  </resources>
  <connections>
   <connection>
-   <sender>boxLaunchThunderbirdAtStart</sender>
+   <sender>boxLaunchBetterbirdAtStart</sender>
    <signal>toggled(bool)</signal>
    <receiver>boxHideWindowAtStart</receiver>
    <slot>setEnabled(bool)</slot>
@@ -1230,7 +1230,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>boxRestartThunderbird</sender>
+   <sender>boxRestartBetterbird</sender>
    <signal>toggled(bool)</signal>
    <receiver>boxHideWindowAtRestart</receiver>
    <slot>setEnabled(bool)</slot>
@@ -1342,7 +1342,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>boxStartThunderbirdOnTrayIconClick</sender>
+   <sender>boxStartBetterbirdOnTrayIconClick</sender>
    <signal>toggled(bool)</signal>
    <receiver>boxHideWindowAfterManualStart</receiver>
    <slot>setEnabled(bool)</slot>

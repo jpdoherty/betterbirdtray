@@ -9,8 +9,8 @@
         <translation>SimpChinese</translation>
     </message>
     <message>
-        <source>A free system tray notification for new mail for Thunderbird.</source>
-        <translation>一个提供Thunderbird最小化到系统托盘及新邮件提醒功能的自由软件。</translation>
+        <source>A free system tray notification for new mail for Betterbird.</source>
+        <translation>一个提供Betterbird最小化到系统托盘及新邮件提醒功能的自由软件。</translation>
         <translatorcomment>checkTranslation ignore: punctuation_end_differ</translatorcomment>
     </message>
     <message>

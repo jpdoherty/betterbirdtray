@@ -79,38 +79,38 @@ static DWORD getProcessId(LPCWCH processName) {
 
 
 WindowTools_Win::WindowTools_Win() : WindowTools() {
-    thunderbirdWindow = nullptr;
-    thunderbirdMinimizeHook = nullptr;
+    betterbirdWindow = nullptr;
+    betterbirdMinimizeHook = nullptr;
 }
 
 WindowTools_Win::~WindowTools_Win() {
-    thunderbirdWindow = nullptr;
-    if (thunderbirdMinimizeHook != nullptr) {
-        UnhookWinEvent(thunderbirdMinimizeHook);
-        thunderbirdMinimizeHook = nullptr;
+    betterbirdWindow = nullptr;
+    if (betterbirdMinimizeHook != nullptr) {
+        UnhookWinEvent(betterbirdMinimizeHook);
+        betterbirdMinimizeHook = nullptr;
     }
 }
 
 bool WindowTools_Win::lookup() {
     if (isValid()) {
-        return thunderbirdWindow;
+        return betterbirdWindow;
     }
     
-    DWORD thunderbirdProcessId = getProcessId(L"thunderbird.exe");
-    if (thunderbirdProcessId == 0) {
+    DWORD betterbirdProcessId = getProcessId(L"betterbird.exe");
+    if (betterbirdProcessId == 0) {
         return false;
     }
     
-    thunderbirdWindow = findMainWindow(thunderbirdProcessId);
-    if (thunderbirdWindow == nullptr) {
+    betterbirdWindow = findMainWindow(betterbirdProcessId);
+    if (betterbirdWindow == nullptr) {
         return false;
     }
-    DWORD thunderbirdThreadId = GetWindowThreadProcessId(thunderbirdWindow, &thunderbirdProcessId);
-    if (thunderbirdThreadId) {
-        thunderbirdMinimizeHook = SetWinEventHook(
+    DWORD betterbirdThreadId = GetWindowThreadProcessId(betterbirdWindow, &betterbirdProcessId);
+    if (betterbirdThreadId) {
+        betterbirdMinimizeHook = SetWinEventHook(
                 EVENT_SYSTEM_MINIMIZESTART, EVENT_SYSTEM_MINIMIZESTART, nullptr,
-                &WindowTools_Win::minimizeCallback, thunderbirdProcessId,
-                thunderbirdThreadId, WINEVENT_OUTOFCONTEXT);
+                &WindowTools_Win::minimizeCallback, betterbirdProcessId,
+                betterbirdThreadId, WINEVENT_OUTOFCONTEXT);
     }
     return true;
 }
@@ -119,12 +119,12 @@ bool WindowTools_Win::show() {
     if (!checkWindow()) {
         return false;
     }
-    if (IsIconic(this->thunderbirdWindow)) {
-        ShowWindow(this->thunderbirdWindow, SW_RESTORE);
+    if (IsIconic(this->betterbirdWindow)) {
+        ShowWindow(this->betterbirdWindow, SW_RESTORE);
     } else {
-        ShowWindow(this->thunderbirdWindow, SW_SHOW);
+        ShowWindow(this->betterbirdWindow, SW_SHOW);
     }
-    if (SetForegroundWindow(this->thunderbirdWindow) == TRUE) {
+    if (SetForegroundWindow(this->betterbirdWindow) == TRUE) {
         emit onWindowShown();
         return true;
     }
@@ -135,7 +135,7 @@ bool WindowTools_Win::hide() {
     if (!checkWindow()) {
         return false;
     }
-    if (ShowWindow(this->thunderbirdWindow, SW_HIDE) > 0) {
+    if (ShowWindow(this->betterbirdWindow, SW_HIDE) > 0) {
         emit onWindowHidden();
         return true;
     }
@@ -143,7 +143,7 @@ bool WindowTools_Win::hide() {
 }
 
 bool WindowTools_Win::isHidden() {
-    return isValid() && !IsWindowVisible(this->thunderbirdWindow);
+    return isValid() && !IsWindowVisible(this->betterbirdWindow);
 }
 
 bool WindowTools_Win::closeWindow() {
@@ -151,11 +151,11 @@ bool WindowTools_Win::closeWindow() {
         return false;
     }
     show();
-    return SendMessage(this->thunderbirdWindow, WM_CLOSE, 0, 0) == 0;
+    return SendMessage(this->betterbirdWindow, WM_CLOSE, 0, 0) == 0;
 }
 
 bool WindowTools_Win::isValid() {
-    return thunderbirdWindow != nullptr && IsWindow(thunderbirdWindow);
+    return betterbirdWindow != nullptr && IsWindow(betterbirdWindow);
 }
 
 bool WindowTools_Win::checkWindow() {
@@ -171,10 +171,10 @@ void CALLBACK WindowTools_Win::minimizeCallback(
     BirdtrayApp* app = BirdtrayApp::get();
     auto* winTools = dynamic_cast<WindowTools_Win*>(app->getTrayIcon()->getWindowTools());
     if (event == EVENT_SYSTEM_MINIMIZESTART &&
-        window == winTools->thunderbirdWindow &&
+        window == winTools->betterbirdWindow &&
         idObject == OBJID_WINDOW && idChild == INDEXID_CONTAINER &&
         app->getSettings()->mHideWhenMinimized && winTools->isValid() &&
-        IsIconic(winTools->thunderbirdWindow) && IsWindowVisible(winTools->thunderbirdWindow)) {
+        IsIconic(winTools->betterbirdWindow) && IsWindowVisible(winTools->betterbirdWindow)) {
         winTools->hide();
     }
 }

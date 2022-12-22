@@ -9,8 +9,8 @@
         <translation>Turkish</translation>
     </message>
     <message>
-        <source>A free system tray notification for new mail for Thunderbird.</source>
-        <translation>Thunderbird&apos;den yeni postalar için ücretsiz bir sistem tepsisi bildirim programı.</translation>
+        <source>A free system tray notification for new mail for Betterbird.</source>
+        <translation>Betterbird&apos;den yeni postalar için ücretsiz bir sistem tepsisi bildirim programı.</translation>
     </message>
     <message>
         <source>Windows integration</source>

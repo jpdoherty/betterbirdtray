@@ -9,7 +9,7 @@
         <translation>English</translation>
     </message>
     <message>
-        <source>A free system tray notification for new mail for Thunderbird.</source>
+        <source>A free system tray notification for new mail for Betterbird.</source>
         <translation>BirdtraySectionDescription</translation>
     </message>
     <message>

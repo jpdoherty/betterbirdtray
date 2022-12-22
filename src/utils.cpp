@@ -182,35 +182,35 @@ std::wstring Utils::qToStdWString(const QString &str) {
 #endif
 }
 
-QStringList Utils::getThunderbirdProfilesPaths() {
-#if defined (OPT_THUNDERBIRD_PROFILE)
-    return { OPT_THUNDERBIRD_PROFILE };
+QStringList Utils::getBetterbirdProfilesPaths() {
+#if defined (OPT_BETTERBIRD_PROFILE)
+    return { OPT_BETTERBIRD_PROFILE };
 #elif defined (Q_OS_WIN)
     return {"%APPDATA%\\Thunderbird\\Profiles"};
 #elif defined (Q_OS_MAC)
     return {"~/Library/Thunderbird/Profiles"};
 #else // Linux
-    return {"~/.thunderbird", "~/snap/thunderbird/common/.thunderbird", "~/.var/app/org.mozilla.Thunderbird/.thunderbird"};
+    return {"~/.betterbird", "~/snap/betterbird/common/.betterbird", "~/.var/app/org.mozilla.Betterbird/.betterbird"};
 #endif /* Platform */
 }
 
-QStringList Utils::getDefaultThunderbirdCommand() {
-#if defined (OPT_THUNDERBIRD_CMDLINE)
-    return Utils::splitCommandLine( OPT_THUNDERBIRD_CMDLINE );
+QStringList Utils::getDefaultBetterbirdCommand() {
+#if defined (OPT_BETTERBIRD_CMDLINE)
+    return Utils::splitCommandLine( OPT_BETTERBIRD_CMDLINE );
 #elif defined (Q_OS_WIN)
     if (QFile::exists(Utils::expandPath(
-            R"("%ProgramFiles%\Mozilla Thunderbird\thunderbird.exe")"))) {
-        return {R"("%ProgramFiles%\Mozilla Thunderbird\thunderbird.exe")"};
+            R"("%ProgramFiles%\Betterbird\betterbird.exe")"))) {
+        return {R"("%ProgramFiles%\Betterbird\betterbird.exe")"};
     }
-    return {R"("%ProgramFiles(x86)%\Mozilla Thunderbird\thunderbird.exe")"};
+    return {R"("%ProgramFiles(x86)%\Betterbird\betterbird.exe")"};
 #else
-    return { "/usr/bin/thunderbird" };
+    return { "/usr/bin/betterbird" };
 #endif
 }
 
 QStringList Utils::splitCommandLine(const QString &src)
 {
-    // This must handle strings like "C:\Program Files\exe\thunderbird.exe" --profile test --title "My test profile" test "a 'bb' \"V\" c"
+    // This must handle strings like "C:\Program Files\exe\betterbird.exe" --profile test --title "My test profile" test "a 'bb' \"V\" c"
     // must return an array with 7 elements
     QChar sep = QChar::Null;
     QStringList out;

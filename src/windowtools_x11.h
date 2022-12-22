@@ -20,7 +20,7 @@ class WindowTools_X11 : public WindowTools
         WindowTools_X11();
         ~WindowTools_X11();
 
-        // Looks up and remembers Thunderbird window handle. Returns true if found,
+        // Looks up and remembers Betterbird window handle. Returns true if found,
         // false if not found.
         virtual bool    lookup();
 
@@ -36,7 +36,7 @@ class WindowTools_X11 : public WindowTools
         // Closes the application via WM_CLOSE or similar
         virtual bool    closeWindow();
 
-        // Return true if Thunderbird window is valid (hidden or shown)
+        // Return true if Betterbird window is valid (hidden or shown)
         virtual bool    isValid();
 
     private slots:

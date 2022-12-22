@@ -17,18 +17,18 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Select the directory that contains the Thunderbird profiles.</string>
+      <string>Select the directory that contains the Betterbird profiles.</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLineEdit" name="tbProfilesPathEdit">
+       <widget class="QLineEdit" name="bbProfilesPathEdit">
         <property name="placeholderText">
-         <string>Thunderbird Profiles Directory</string>
+         <string>Betterbird Profiles Directory</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="tbProfilesBrowseButton">
+       <widget class="QPushButton" name="bbProfilesBrowseButton">
         <property name="text">
          <string>Browse</string>
         </property>

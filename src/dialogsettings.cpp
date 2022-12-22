@@ -59,24 +59,24 @@ DialogSettings::DialogSettings( QWidget *parent)
     notificationFontWeight->setValue( settings->mNotificationFontWeight * 2 );
     sliderBlinkingSpeed->setValue( settings->mBlinkSpeed == 0 ?
             0 : sliderBlinkingSpeed->maximum() + 1 - static_cast<int>(settings->mBlinkSpeed) );
-    boxLaunchThunderbirdAtStart->setChecked( settings->mLaunchThunderbird );
-    boxShowHideThunderbird->setChecked( settings->mShowHideThunderbird );
+    boxLaunchBetterbirdAtStart->setChecked( settings->mLaunchBetterbird );
+    boxShowHideBetterbird->setChecked( settings->mShowHideBetterbird );
     boxHideWhenMinimized->setChecked( settings->mHideWhenMinimized );
-    boxMonitorThunderbirdWindow->setChecked( settings->mMonitorThunderbirdWindow );
-    boxRestartThunderbird->setChecked( settings->mRestartThunderbird );
-    leThunderbirdWindowMatch->setText( settings->mThunderbirdWindowMatch  );
+    boxMonitorBetterbirdWindow->setChecked( settings->mMonitorBetterbirdWindow );
+    boxRestartBetterbird->setChecked( settings->mRestartBetterbird );
+    leBetterbirdWindowMatch->setText( settings->mBetterbirdWindowMatch  );
     spinMinimumFontSize->setValue( settings->mNotificationMinimumFontSize );
     spinMinimumFontSize->setMaximum( settings->mNotificationMaximumFontSize - 1 );
     boxHideWindowAtStart->setChecked( settings->mHideWhenStarted );
     boxHideWindowAtRestart->setChecked( settings->mHideWhenRestarted );
-    boxStartThunderbirdOnTrayIconClick->setChecked( settings->startClosedThunderbird );
+    boxStartBetterbirdOnTrayIconClick->setChecked( settings->startClosedBetterbird );
     boxHideWindowAfterManualStart->setChecked( settings->hideWhenStartedManually );
     boxEnableNewEmail->setChecked( settings->mNewEmailMenuEnabled );
     boxBlinkingUsesAlpha->setChecked( settings->mBlinkingUseAlphaTransition );
     checkUpdateOnStartup->setChecked( settings->mUpdateOnStartup );
     boxAllowSuppression->setChecked( settings->mAllowSuppressingUnreads );
     spinUnreadOpacityLevel->setValue( settings->mUnreadOpacityLevel * 100 );
-    spinThunderbirdStartDelay->setValue( settings->mLaunchThunderbirdDelay );
+    spinBetterbirdStartDelay->setValue( settings->mLaunchBetterbirdDelay );
     boxShowUnreadCount->setChecked( settings->mShowUnreadEmailCount );
     ignoreMailCountOnStartupBox->setChecked(settings->ignoreUnreadCountOnStart);
     ignoreMailCountOnShowBox->setChecked(settings->ignoreUnreadCountOnShow);
@@ -95,22 +95,22 @@ DialogSettings::DialogSettings( QWidget *parent)
     spinWatchFileTimerMilliseconds->setValue( static_cast<int>(settings->mWatchFileTimeout) );
 
     // Form the proper command-line (with escaped arguments if they contain spaces
-    QString tbcmdline;
-    for ( QString a : settings->mThunderbirdCmdLine )
+    QString bbcmdline;
+    for ( QString a : settings->mBetterbirdCmdLine )
     {
-        if ( !tbcmdline.isEmpty() )
-            tbcmdline += ' ';
+        if ( !bbcmdline.isEmpty() )
+            bbcmdline += ' ';
 
         if ( a.contains( ' ') && a[0] != '"' )
-            tbcmdline += '"' + a + '"';
+            bbcmdline += '"' + a + '"';
         else
-            tbcmdline += a;
+            bbcmdline += a;
     }
 
-    leThunderbirdCmdLine->setText( tbcmdline );
+    leBetterbirdCmdLine->setText( bbcmdline );
 
-    if ( settings->mLaunchThunderbird )
-        boxStopThunderbirdOnExit->setChecked( settings->mExitThunderbirdWhenQuit );
+    if ( settings->mLaunchBetterbird )
+        boxStopBetterbirdOnExit->setChecked( settings->mExitBetterbirdWhenQuit );
 
     // Accounts tab
     mAccountModel = new ModelAccountTree(this, treeAccounts);
@@ -151,27 +151,27 @@ void DialogSettings::accept()
     settings->mNotificationFont = notificationFont->currentFont();
     settings->mBlinkSpeed = sliderBlinkingSpeed->value() == 0 ?
             0 : sliderBlinkingSpeed->maximum() + 1 - sliderBlinkingSpeed->value();
-    settings->mLaunchThunderbird = boxLaunchThunderbirdAtStart->isChecked();
-    settings->mShowHideThunderbird = boxShowHideThunderbird->isChecked();
-    settings->mThunderbirdCmdLine = Utils::splitCommandLine( leThunderbirdCmdLine->text() );
-    settings->mThunderbirdWindowMatch = leThunderbirdWindowMatch->text();
+    settings->mLaunchBetterbird = boxLaunchBetterbirdAtStart->isChecked();
+    settings->mShowHideBetterbird = boxShowHideBetterbird->isChecked();
+    settings->mBetterbirdCmdLine = Utils::splitCommandLine( leBetterbirdCmdLine->text() );
+    settings->mBetterbirdWindowMatch = leBetterbirdWindowMatch->text();
     settings->mHideWhenMinimized = boxHideWhenMinimized->isChecked();
     settings->mNotificationFontWeight = qMin(99, (int) (notificationFontWeight->value() / 2));
-    settings->mExitThunderbirdWhenQuit = boxStopThunderbirdOnExit->isChecked();
+    settings->mExitBetterbirdWhenQuit = boxStopBetterbirdOnExit->isChecked();
     settings->mAllowSuppressingUnreads = boxAllowSuppression->isChecked();
 
-    settings->mMonitorThunderbirdWindow = boxMonitorThunderbirdWindow->isChecked();    
+    settings->mMonitorBetterbirdWindow = boxMonitorBetterbirdWindow->isChecked();    
     settings->mNotificationMinimumFontSize = spinMinimumFontSize->value();
-    settings->mRestartThunderbird = boxRestartThunderbird->isChecked();
+    settings->mRestartBetterbird = boxRestartBetterbird->isChecked();
     settings->mHideWhenStarted = boxHideWindowAtStart->isChecked();
     settings->mHideWhenRestarted = boxHideWindowAtRestart->isChecked();
-    settings->startClosedThunderbird = boxStartThunderbirdOnTrayIconClick->isChecked();
+    settings->startClosedBetterbird = boxStartBetterbirdOnTrayIconClick->isChecked();
     settings->hideWhenStartedManually = boxHideWindowAfterManualStart->isChecked();
     settings->mNewEmailMenuEnabled = boxEnableNewEmail->isChecked();
     settings->mBlinkingUseAlphaTransition = boxBlinkingUsesAlpha->isChecked();
     settings->mUpdateOnStartup = checkUpdateOnStartup->isChecked();
     settings->mUnreadOpacityLevel = (double) spinUnreadOpacityLevel->value() / 100.0;
-    settings->mLaunchThunderbirdDelay = spinThunderbirdStartDelay->value();
+    settings->mLaunchBetterbirdDelay = spinBetterbirdStartDelay->value();
     settings->mShowUnreadEmailCount = boxShowUnreadCount->isChecked();
     settings->ignoreUnreadCountOnStart = settings->mAllowSuppressingUnreads &&
             ignoreMailCountOnStartupBox->isChecked();

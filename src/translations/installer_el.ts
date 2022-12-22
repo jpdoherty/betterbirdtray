@@ -9,8 +9,8 @@
         <translation>Greek</translation>
     </message>
     <message>
-        <source>A free system tray notification for new mail for Thunderbird.</source>
-        <translation>Μια ελεύθερη εφαρμογή πλαισίου συστήματος για την ειδοποίηση νέας αλληλογραφίας του Thunderbird.</translation>
+        <source>A free system tray notification for new mail for Betterbird.</source>
+        <translation>Μια ελεύθερη εφαρμογή πλαισίου συστήματος για την ειδοποίηση νέας αλληλογραφίας του Betterbird.</translation>
     </message>
     <message>
         <source>Windows integration</source>

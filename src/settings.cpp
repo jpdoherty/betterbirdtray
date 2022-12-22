@@ -16,7 +16,7 @@
 
 #define BORDER_COLOR_KEY "common/bordercolor"
 #define BORDER_WIDTH_KEY "common/borderwidth"
-#define START_CLOSED_THUNDERBIRD_KEY "common/startClosedThunderbird"
+#define START_CLOSED_BETTERBIRD_KEY "common/startClosedBetterbird"
 #define HIDE_WHEN_STARTED_MANUALLY_KEY "common/hideWhenStartedManually"
 #define UPDATE_ON_STARTUP_KEY "advanced/updateOnStartup"
 #define ONLY_SHOW_ICON_ON_UNREAD_MESSAGES_KEY "advanced/onlyShowIconOnUnreadMessages"
@@ -44,25 +44,25 @@ Settings::Settings()
     mNotificationBorderColor = QColor("#FFFFFF");
     mNotificationBorderWidth = 15;
     mBlinkSpeed = 0;
-    mShowHideThunderbird = false;
-    mLaunchThunderbird = false;
+    mShowHideBetterbird = false;
+    mLaunchBetterbird = false;
     mHideWhenMinimized = false;
-    mExitThunderbirdWhenQuit = false;
+    mExitBetterbirdWhenQuit = false;
     mNotificationFontWeight = 50;
-    mMonitorThunderbirdWindow = false;
-    mRestartThunderbird = false;
+    mMonitorBetterbirdWindow = false;
+    mRestartBetterbird = false;
     mHideWhenStarted = false;
     mHideWhenRestarted = false;
-    startClosedThunderbird = false;
+    startClosedBetterbird = false;
     hideWhenStartedManually = false;
     mAllowSuppressingUnreads = false;
-    mLaunchThunderbirdDelay = 0;
+    mLaunchBetterbirdDelay = 0;
     mShowUnreadEmailCount = true;
     ignoreUnreadCountOnStart = false;
     ignoreUnreadCountOnShow = false;
     ignoreUnreadCountOnHide = false;
     showDialogIfNoAccountsConfigured = true;
-    mThunderbirdWindowMatch = " Mozilla Thunderbird";
+    mBetterbirdWindowMatch = " Betterbird";
     mNotificationMinimumFontSize = 4;
     mNotificationMaximumFontSize = 512;
     mWatchFileTimeout = 150;
@@ -72,7 +72,7 @@ Settings::Settings()
     mUnreadOpacityLevel = 0.75;
     mNewEmailMenuEnabled = false;
     mIndexFilesRereadIntervalSec = 0;
-    mThunderbirdCmdLine = Utils::getDefaultThunderbirdCommand();
+    mBetterbirdCmdLine = Utils::getDefaultBetterbirdCommand();
     mIgnoreNETWMhints = false;
 }
 
@@ -89,27 +89,27 @@ void Settings::save()
     out[ BORDER_COLOR_KEY ] = mNotificationBorderColor.name();
     out[ BORDER_WIDTH_KEY ] = static_cast<int>( mNotificationBorderWidth );
     out[ "common/blinkspeed" ] = static_cast<int>( mBlinkSpeed );
-    out[ "common/showhidethunderbird" ] = mShowHideThunderbird;
-    out[ "common/launchthunderbird" ] = mLaunchThunderbird;
+    out[ "common/showhidebetterbird" ] = mShowHideBetterbird;
+    out[ "common/launchbetterbird" ] = mLaunchBetterbird;
     out[ "common/hidewhenminimized" ] = mHideWhenMinimized;
-    out[ "common/exitthunderbirdonquit" ] = mExitThunderbirdWhenQuit;
-    out[ "common/restartthunderbird" ] = mRestartThunderbird;
+    out[ "common/exitbetterbirdonquit" ] = mExitBetterbirdWhenQuit;
+    out[ "common/restartbetterbird" ] = mRestartBetterbird;
     out[ "common/notificationfontweight" ] = static_cast<int>( mNotificationFontWeight );
-    out[ "common/monitorthunderbirdwindow" ] = mMonitorThunderbirdWindow;
+    out[ "common/monitorbetterbirdwindow" ] = mMonitorBetterbirdWindow;
     out[ "common/hidewhenstarted" ] = mHideWhenStarted;
     out[ "common/hidewhenrestarted" ] = mHideWhenRestarted;
-    out[ START_CLOSED_THUNDERBIRD_KEY ] = startClosedThunderbird;
+    out[ START_CLOSED_BETTERBIRD_KEY ] = startClosedBetterbird;
     out[ HIDE_WHEN_STARTED_MANUALLY_KEY ] = hideWhenStartedManually;
     out[ "common/allowsuppressingunread" ] = mAllowSuppressingUnreads;
-    out[ "common/launchthunderbirddelay" ] = mLaunchThunderbirdDelay;
+    out[ "common/launchbetterbirddelay" ] = mLaunchBetterbirdDelay;
     out[ "common/showunreademailcount" ] = mShowUnreadEmailCount;
     out[ "common/ignoreStartUnreadCount" ] = ignoreUnreadCountOnStart;
     out[ "common/ignoreShowUnreadCount" ] = ignoreUnreadCountOnShow;
     out[ "common/forceIgnoreUnreadEmailsOnMinimize" ] = ignoreUnreadCountOnHide;
     out[ "common/showDialogIfNoAccountsConfigured"  ] = showDialogIfNoAccountsConfigured;
 
-    out[ "advanced/tbcmdline" ] = QJsonArray::fromStringList( mThunderbirdCmdLine );
-    out[ "advanced/tbwindowmatch" ] = mThunderbirdWindowMatch;
+    out[ "advanced/bbcmdline" ] = QJsonArray::fromStringList( mBetterbirdCmdLine );
+    out[ "advanced/bbwindowmatch" ] = mBetterbirdWindowMatch;
     out[ "advanced/notificationfontminsize" ] = static_cast<int>( mNotificationMinimumFontSize );
     out[ "advanced/notificationfontmaxsize" ] = static_cast<int>( mNotificationMaximumFontSize );
     out[ "advanced/watchfiletimeout" ] = static_cast<int>( mWatchFileTimeout );
@@ -227,19 +227,19 @@ void Settings::fromJSON( const QJsonObject& settings )
         mNotificationBorderWidth = settings.value( BORDER_WIDTH_KEY ).toInt();
 
     mBlinkSpeed = settings.value("common/blinkspeed").toInt();
-    mShowHideThunderbird = settings.value("common/showhidethunderbird").toBool();
-    mLaunchThunderbird = settings.value("common/launchthunderbird").toBool();
+    mShowHideBetterbird = settings.value("common/showhidebetterbird").toBool();
+    mLaunchBetterbird = settings.value("common/launchbetterbird").toBool();
     mHideWhenMinimized = settings.value("common/hidewhenminimized").toBool();
-    mExitThunderbirdWhenQuit = settings.value("common/exitthunderbirdonquit").toBool();
+    mExitBetterbirdWhenQuit = settings.value("common/exitbetterbirdonquit").toBool();
     mNotificationFontWeight = qMin(99, settings.value("common/notificationfontweight").toInt());
-    mMonitorThunderbirdWindow = settings.value("common/monitorthunderbirdwindow").toBool();
-    mRestartThunderbird = settings.value("common/restartthunderbird").toBool();
+    mMonitorBetterbirdWindow = settings.value("common/monitorbetterbirdwindow").toBool();
+    mRestartBetterbird = settings.value("common/restartbetterbird").toBool();
     mHideWhenStarted = settings.value("common/hidewhenstarted").toBool();
     mHideWhenRestarted = settings.value("common/hidewhenrestarted").toBool();
-    startClosedThunderbird = settings.value(START_CLOSED_THUNDERBIRD_KEY).toBool();
+    startClosedBetterbird = settings.value(START_CLOSED_BETTERBIRD_KEY).toBool();
     hideWhenStartedManually = settings.value(HIDE_WHEN_STARTED_MANUALLY_KEY).toBool();
     mAllowSuppressingUnreads = settings.value("common/allowsuppressingunread").toBool();
-    mLaunchThunderbirdDelay = settings.value("common/launchthunderbirddelay").toInt();
+    mLaunchBetterbirdDelay = settings.value("common/launchbetterbirddelay").toInt();
     mShowUnreadEmailCount = settings.value("common/showunreademailcount").toBool();
     ignoreUnreadCountOnStart = mAllowSuppressingUnreads &&
             settings.value("common/ignoreStartUnreadCount").toBool();
@@ -249,7 +249,7 @@ void Settings::fromJSON( const QJsonObject& settings )
             settings.value("common/forceIgnoreUnreadEmailsOnMinimize").toBool();
     showDialogIfNoAccountsConfigured = settings.value("common/showDialogIfNoAccountsConfigured").toBool();
 
-    mThunderbirdWindowMatch = settings.value("advanced/tbwindowmatch").toString();
+    mBetterbirdWindowMatch = settings.value("advanced/bbwindowmatch").toString();
     mNotificationMinimumFontSize = settings.value("advanced/notificationfontminsize").toInt();
     mNotificationMaximumFontSize = settings.value("advanced/notificationfontmaxsize").toInt();
     mWatchFileTimeout = settings.value("advanced/watchfiletimeout").toInt();
@@ -262,9 +262,9 @@ void Settings::fromJSON( const QJsonObject& settings )
     mProcessRunOnCountChange = settings.value( "advanced/runProcessOnChange" ).toString();
     mIgnoreNETWMhints = settings.value( "advanced/ignoreNetWMhints").toBool();
 
-    QStringList thunderbirdCommand = settings.value("advanced/tbcmdline").toVariant().toStringList();
-    if ( !thunderbirdCommand.isEmpty() && !thunderbirdCommand[0].isEmpty() )
-        mThunderbirdCmdLine = thunderbirdCommand;
+    QStringList betterbirdCommand = settings.value("advanced/bbcmdline").toVariant().toStringList();
+    if ( !betterbirdCommand.isEmpty() && !betterbirdCommand[0].isEmpty() )
+        mBetterbirdCmdLine = betterbirdCommand;
 
     watchedMorkFiles.clear();
 
@@ -323,26 +323,26 @@ void Settings::fromQSettings( QSettings * psettings )
             BORDER_WIDTH_KEY, settings.value("common/defaultcolor").isNull() ?
                               0 : mNotificationBorderWidth).toUInt();
     mBlinkSpeed = settings.value("common/blinkspeed", mBlinkSpeed ).toInt();
-    mShowHideThunderbird = settings.value(
-            "common/showhidethunderbird", mShowHideThunderbird ).toBool();
-    mLaunchThunderbird = settings.value("common/launchthunderbird", mLaunchThunderbird ).toBool();
+    mShowHideBetterbird = settings.value(
+            "common/showhidebetterbird", mShowHideBetterbird ).toBool();
+    mLaunchBetterbird = settings.value("common/launchbetterbird", mLaunchBetterbird ).toBool();
     mHideWhenMinimized = settings.value("common/hidewhenminimized", mHideWhenMinimized ).toBool();
-    mExitThunderbirdWhenQuit = settings.value(
-            "common/exitthunderbirdonquit", mExitThunderbirdWhenQuit ).toBool();
+    mExitBetterbirdWhenQuit = settings.value(
+            "common/exitbetterbirdonquit", mExitBetterbirdWhenQuit ).toBool();
     mNotificationFontWeight = qMin(99, settings.value(
             "common/notificationfontweight", mNotificationFontWeight ).toInt());
-    mMonitorThunderbirdWindow = settings.value(
-            "common/monitorthunderbirdwindow", mMonitorThunderbirdWindow ).toBool();
-    mRestartThunderbird = settings.value(
-            "common/restartthunderbird", mRestartThunderbird ).toBool();
+    mMonitorBetterbirdWindow = settings.value(
+            "common/monitorbetterbirdwindow", mMonitorBetterbirdWindow ).toBool();
+    mRestartBetterbird = settings.value(
+            "common/restartbetterbird", mRestartBetterbird ).toBool();
     mHideWhenStarted = settings.value("common/hidewhenstarted", mHideWhenStarted ).toBool();
     mHideWhenRestarted = settings.value("common/hidewhenrestarted", mHideWhenRestarted ).toBool();
-    startClosedThunderbird = settings.value(START_CLOSED_THUNDERBIRD_KEY, startClosedThunderbird ).toBool();
+    startClosedBetterbird = settings.value(START_CLOSED_BETTERBIRD_KEY, startClosedBetterbird ).toBool();
     hideWhenStartedManually = settings.value(HIDE_WHEN_STARTED_MANUALLY_KEY, hideWhenStartedManually ).toBool();
     mAllowSuppressingUnreads = settings.value(
             "common/allowsuppressingunread", mAllowSuppressingUnreads ).toBool();
-    mLaunchThunderbirdDelay = settings.value(
-            "common/launchthunderbirddelay", mLaunchThunderbirdDelay ).toInt();
+    mLaunchBetterbirdDelay = settings.value(
+            "common/launchbetterbirddelay", mLaunchBetterbirdDelay ).toInt();
     mShowUnreadEmailCount = settings.value(
             "common/showunreademailcount", mShowUnreadEmailCount ).toBool();
     ignoreUnreadCountOnStart = mAllowSuppressingUnreads && settings.value(
@@ -354,13 +354,13 @@ void Settings::fromQSettings( QSettings * psettings )
     showDialogIfNoAccountsConfigured = settings.value(
             "common/showDialogIfNoAccountsConfigured", showDialogIfNoAccountsConfigured).toBool();
 
-    QStringList thunderbirdCommand = settings.value(
-            "advanced/tbcmdline", mThunderbirdCmdLine).toStringList();
-    if (!thunderbirdCommand.isEmpty() && !thunderbirdCommand[0].isEmpty()) {
-        mThunderbirdCmdLine = thunderbirdCommand;
+    QStringList betterbirdCommand = settings.value(
+            "advanced/bbcmdline", mBetterbirdCmdLine).toStringList();
+    if (!betterbirdCommand.isEmpty() && !betterbirdCommand[0].isEmpty()) {
+        mBetterbirdCmdLine = betterbirdCommand;
     }
-    mThunderbirdWindowMatch = settings.value(
-            "advanced/tbwindowmatch", mThunderbirdWindowMatch ).toString();
+    mBetterbirdWindowMatch = settings.value(
+            "advanced/bbwindowmatch", mBetterbirdWindowMatch ).toString();
     mNotificationMinimumFontSize = settings.value(
             "advanced/notificationfontminsize", mNotificationMinimumFontSize ).toInt();
     mNotificationMaximumFontSize = settings.value(
@@ -485,12 +485,12 @@ void Settings::fromQSettings( QSettings * psettings )
     }
 }
 
-bool Settings::getStartThunderbirdCmdline( QString& executable, QStringList &arguments )
+bool Settings::getStartBetterbirdCmdline( QString& executable, QStringList &arguments )
 {
-    if ( mThunderbirdCmdLine.isEmpty() )
+    if ( mBetterbirdCmdLine.isEmpty() )
         return false;
 
-    arguments = mThunderbirdCmdLine;
+    arguments = mBetterbirdCmdLine;
     executable = QFileInfo( Utils::expandPath( arguments.takeFirst() ) ).absoluteFilePath();
 
 #if defined (Q_OS_WIN)

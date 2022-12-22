@@ -9,8 +9,8 @@
         <translation>Dutch</translation>
     </message>
     <message>
-        <source>A free system tray notification for new mail for Thunderbird.</source>
-        <translation>Een gratis systeemvakprogramma dat meldingen toont van Thunderbird.</translation>
+        <source>A free system tray notification for new mail for Betterbird.</source>
+        <translation>Een gratis systeemvakprogramma dat meldingen toont van Betterbird.</translation>
     </message>
     <message>
         <source>Windows integration</source>

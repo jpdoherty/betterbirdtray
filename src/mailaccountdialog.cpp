@@ -14,14 +14,14 @@ MailAccountDialog::MailAccountDialog(QWidget* parent, QColor defaultColor) :
         ui(new Ui::MailAccountDialog),
         defaultColor(std::move(defaultColor)) {
     ui->setupUi(this);
-    connect(ui->tbProfilesBrowseButton, &QAbstractButton::clicked,
+    connect(ui->bbProfilesBrowseButton, &QAbstractButton::clicked,
             this, &MailAccountDialog::onProfilesDirBrowseButtonClicked);
-    connect(ui->tbProfilesPathEdit, &QLineEdit::editingFinished,
+    connect(ui->bbProfilesPathEdit, &QLineEdit::editingFinished,
             this, &MailAccountDialog::loadProfiles);
     connect(ui->accountsList, &QTreeWidget::itemChanged, &MailAccountDialog::onAccountItemChanged);
-    for (const QString &path : Utils::getThunderbirdProfilesPaths()) {
+    for (const QString &path : Utils::getBetterbirdProfilesPaths()) {
         if (QDir(Utils::expandPath(path)).exists()) {
-            ui->tbProfilesPathEdit->setText(path);
+            ui->bbProfilesPathEdit->setText(path);
             loadProfiles();
             break;
         }
@@ -65,12 +65,12 @@ void MailAccountDialog::keyPressEvent(QKeyEvent* event) {
 
 void MailAccountDialog::onProfilesDirBrowseButtonClicked() {
     QString directory = QFileDialog::getExistingDirectory(
-            nullptr, tr("Choose the Thunderbird profiles path"),
-            Utils::expandPath(ui->tbProfilesPathEdit->text()), QFileDialog::ShowDirsOnly);
+            nullptr, tr("Choose the Betterbird profiles path"),
+            Utils::expandPath(ui->bbProfilesPathEdit->text()), QFileDialog::ShowDirsOnly);
     if (directory.isEmpty()) {
         return;
     }
-    ui->tbProfilesPathEdit->setText(QDir::toNativeSeparators(directory));
+    ui->bbProfilesPathEdit->setText(QDir::toNativeSeparators(directory));
     loadProfiles();
 }
 
@@ -101,10 +101,10 @@ void MailAccountDialog::onAccountItemChanged(QTreeWidgetItem* item, int column) 
 }
 
 void MailAccountDialog::loadProfiles() {
-    if (profilesDirPath == ui->tbProfilesPathEdit->text()) {
+    if (profilesDirPath == ui->bbProfilesPathEdit->text()) {
         return;
     }
-    profilesDirPath = ui->tbProfilesPathEdit->text();
+    profilesDirPath = ui->bbProfilesPathEdit->text();
     ui->accountsList->clear();
     QDir profilesDir(Utils::expandPath(profilesDirPath));
     bool foundAValidProfileDir = false;
@@ -125,7 +125,7 @@ void MailAccountDialog::loadProfiles() {
     if (!foundAValidProfileDir) {
         if (!getMailFoldersFor(profilesDirPath).isEmpty()) {
             profilesDir.cdUp();
-            ui->tbProfilesPathEdit->setText(QDir::toNativeSeparators(profilesDir.path()));
+            ui->bbProfilesPathEdit->setText(QDir::toNativeSeparators(profilesDir.path()));
             loadProfiles();
         }
     }

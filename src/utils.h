@@ -42,15 +42,15 @@ class Utils
 
         /**
          * @return A list of possible locations of the directory
-         *         that contains the Thunderbird profiles.
-         * @see https://support.mozilla.org/en-US/kb/profiles-where-thunderbird-stores-user-data#w_profile-location-summary
+         *         that contains the Betterbird profiles.
+         * @see https://support.mozilla.org/en-US/kb/profiles-where-betterbird-stores-user-data#w_profile-location-summary
          */
-        static QStringList getThunderbirdProfilesPaths();
+        static QStringList getBetterbirdProfilesPaths();
 
         /**
-         * @return The default Thunderbird command for the current platform.
+         * @return The default Betterbird command for the current platform.
          */
-        static QStringList getDefaultThunderbirdCommand();
+        static QStringList getDefaultBetterbirdCommand();
 
         // Splits the string into stringlist using space as separator, but ignoring spaces inside quoted content
         static QStringList splitCommandLine( const QString& src );

@@ -13,9 +13,9 @@
 #include "log.h"
 
 #define SINGLE_INSTANCE_SERVER_NAME "birdtray.ulduzsoft.single.instance.server.socket"
-#define TOGGLE_THUNDERBIRD_COMMAND "toggle-tb"
-#define SHOW_THUNDERBIRD_COMMAND "show-tb"
-#define HIDE_THUNDERBIRD_COMMAND "hide-tb"
+#define TOGGLE_BETTERBIRD_COMMAND "toggle-bb"
+#define SHOW_BETTERBIRD_COMMAND "show-bb"
+#define HIDE_BETTERBIRD_COMMAND "hide-bb"
 #define SETTINGS_COMMAND "settings"
 
 
@@ -158,7 +158,7 @@ bool BirdtrayApp::loadTranslation(QTranslator &translator, QLocale &locale,
 
 void BirdtrayApp::parseCmdArguments() {
     commandLineParser.setApplicationDescription(
-            tr("A free system tray notification for new mail for Thunderbird."));
+            tr("A free system tray notification for new mail for Betterbird."));
     commandLineParser.addHelpOption();
     commandLineParser.addVersionOption();
     commandLineParser.addOptions({
@@ -166,9 +166,9 @@ void BirdtrayApp::parseCmdArguments() {
              tr("databaseFile")},
             {"decode", tr("Decode an IMAP Utf7 string."), tr("string")},
             {SETTINGS_COMMAND, tr("Show the settings.")},
-            {{"t", TOGGLE_THUNDERBIRD_COMMAND}, tr("Toggle the Thunderbird window.")},
-            {{"s", SHOW_THUNDERBIRD_COMMAND}, tr("Show the Thunderbird window.")},
-            {{"H", HIDE_THUNDERBIRD_COMMAND}, tr("Hide the Thunderbird window.")},
+            {{"t", TOGGLE_BETTERBIRD_COMMAND}, tr("Toggle the Betterbird window.")},
+            {{"s", SHOW_BETTERBIRD_COMMAND}, tr("Show the Betterbird window.")},
+            {{"H", HIDE_BETTERBIRD_COMMAND}, tr("Hide the Betterbird window.")},
             {{"r", "reset-settings"}, tr("Reset the settings to the defaults.")},
             {{"l", "log"}, tr("Write log to a file."), tr("file")}
     });
@@ -220,14 +220,14 @@ bool BirdtrayApp::connectToRunningInstance() const {
 }
 
 void BirdtrayApp::sendCommandsToRunningInstance(QLocalSocket &serverSocket) const {
-    if (commandLineParser.isSet(TOGGLE_THUNDERBIRD_COMMAND)) {
-        serverSocket.write(TOGGLE_THUNDERBIRD_COMMAND "\n");
+    if (commandLineParser.isSet(TOGGLE_BETTERBIRD_COMMAND)) {
+        serverSocket.write(TOGGLE_BETTERBIRD_COMMAND "\n");
     }
-    if (commandLineParser.isSet(SHOW_THUNDERBIRD_COMMAND)) {
-        serverSocket.write(SHOW_THUNDERBIRD_COMMAND "\n");
+    if (commandLineParser.isSet(SHOW_BETTERBIRD_COMMAND)) {
+        serverSocket.write(SHOW_BETTERBIRD_COMMAND "\n");
     }
-    if (commandLineParser.isSet(HIDE_THUNDERBIRD_COMMAND)) {
-        serverSocket.write(HIDE_THUNDERBIRD_COMMAND "\n");
+    if (commandLineParser.isSet(HIDE_BETTERBIRD_COMMAND)) {
+        serverSocket.write(HIDE_BETTERBIRD_COMMAND "\n");
     }
     if (commandLineParser.isSet(SETTINGS_COMMAND)) {
         serverSocket.write(SETTINGS_COMMAND "\n");
@@ -241,16 +241,16 @@ void BirdtrayApp::onSecondInstanceCommand(QLocalSocket* clientSocket) {
     }
     QByteArray line = clientSocket->readLine(128);
     line.chop(1);
-    if (line == TOGGLE_THUNDERBIRD_COMMAND) {
+    if (line == TOGGLE_BETTERBIRD_COMMAND) {
         if (trayIcon->getWindowTools()->isHidden()) {
-            trayIcon->showThunderbird();
+            trayIcon->showBetterbird();
         } else {
-            trayIcon->hideThunderbird();
+            trayIcon->hideBetterbird();
         }
-    } else if (line == SHOW_THUNDERBIRD_COMMAND) {
-        trayIcon->showThunderbird();
-    } else if (line == HIDE_THUNDERBIRD_COMMAND) {
-        trayIcon->hideThunderbird();
+    } else if (line == SHOW_BETTERBIRD_COMMAND) {
+        trayIcon->showBetterbird();
+    } else if (line == HIDE_BETTERBIRD_COMMAND) {
+        trayIcon->hideBetterbird();
     } else if (line == SETTINGS_COMMAND) {
         trayIcon->showSettings();
     }

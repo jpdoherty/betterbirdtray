@@ -70,7 +70,7 @@ protected:
 private Q_SLOTS:
     
     /**
-     * Called when the user clicks on th button to browse for the Thunderbird profiles directory.
+     * Called when the user clicks on th button to browse for the Betterbird profiles directory.
      */
     void onProfilesDirBrowseButtonClicked();
     

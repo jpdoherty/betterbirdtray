@@ -9,8 +9,8 @@
         <translation>Swedish</translation>
     </message>
     <message>
-        <source>A free system tray notification for new mail for Thunderbird.</source>
-        <translation>En fri systemfältsavisering för ny e-post i Thunderbird.</translation>
+        <source>A free system tray notification for new mail for Betterbird.</source>
+        <translation>En fri systemfältsavisering för ny e-post i Betterbird.</translation>
     </message>
     <message>
         <source>Windows integration</source>

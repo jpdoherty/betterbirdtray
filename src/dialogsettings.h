@@ -9,9 +9,9 @@
 #include "ui_dialogsettings.h"
 
 #ifdef Q_OS_WIN
-#  define THUNDERBIRD_PROFILES_PATH "%AppData%\\Thunderbird\\Profiles"
+#  define BETTERBIRD_PROFILES_PATH "%AppData%\\Betterbird\\Profiles"
 #else
-#  define THUNDERBIRD_PROFILES_PATH "~/Library/Thunderbird/Profiles"
+#  define BETTERBIRD_PROFILES_PATH "~/Library/Betterbird/Profiles"
 #endif
 
 

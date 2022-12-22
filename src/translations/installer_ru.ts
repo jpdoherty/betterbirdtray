@@ -9,8 +9,8 @@
         <translation>Russian</translation>
     </message>
     <message>
-        <source>A free system tray notification for new mail for Thunderbird.</source>
-        <translation>Бесплатное уведомление в системном трее о новой почте для Thunderbird.</translation>
+        <source>A free system tray notification for new mail for Betterbird.</source>
+        <translation>Бесплатное уведомление в системном трее о новой почте для Betterbird.</translation>
     </message>
     <message>
         <source>Windows integration</source>

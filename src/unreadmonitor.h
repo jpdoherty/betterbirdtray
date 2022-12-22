@@ -76,7 +76,7 @@ class UnreadMonitor : public QThread
         // Watches the files for changes
         QFileSystemWatcher  mDBWatcher;
 
-        // Thunderbird tends to do lots of modifications to the MSF file
+        // Betterbird tends to do lots of modifications to the MSF file
         // each time a new email arrives. This results in lots of notifications,
         // and thus lots of unread calls. To avoid this, we set up the timer each
         // time a new notification is issued, and reset it for each further notification.

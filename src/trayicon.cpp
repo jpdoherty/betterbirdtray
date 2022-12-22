@@ -26,27 +26,27 @@ TrayIcon::TrayIcon(bool showSettings)
     mSystrayMenu = new QMenu();
     setContextMenu( mSystrayMenu );
 
-    mMenuShowHideThunderbird = 0;
+    mMenuShowHideBetterbird = 0;
     mMenuIgnoreUnreads = 0;
-    mThunderbirdProcess = 0;
+    mBetterbirdProcess = 0;
 #ifdef Q_OS_WIN
-    mThunderbirdUpdaterProcess = ProcessHandle::create("updater.exe");
-    connect( mThunderbirdUpdaterProcess, &ProcessHandle::finished,
-            this, &TrayIcon::tbUpdaterProcessFinished );
+    mBetterbirdUpdaterProcess = ProcessHandle::create("updater.exe");
+    connect( mBetterbirdUpdaterProcess, &ProcessHandle::finished,
+            this, &TrayIcon::bbUpdaterProcessFinished );
 #endif /* Q_OS_WIN */
     
-    mThunderbirdWindowExists = false;
-    mThunderbirdWindowExisted = false;
-    mThunderbirdWindowHide = false;
+    mBetterbirdWindowExists = false;
+    mBetterbirdWindowExisted = false;
+    mBetterbirdWindowHide = false;
     connect(QApplication::instance(), &QApplication::aboutToQuit, this, &TrayIcon::onQuit);
 
     Settings* settings = BirdtrayApp::get()->getSettings();
-    mThunderbirdStartTime = QDateTime::currentDateTime().addSecs(settings->mLaunchThunderbirdDelay);
+    mBetterbirdStartTime = QDateTime::currentDateTime().addSecs(settings->mLaunchBetterbirdDelay);
 
     mWinTools = WindowTools::create();
     if (mWinTools) {
-        connect(mWinTools, &WindowTools::onWindowShown, this, &TrayIcon::onThunderbirdWindowShown);
-        connect(mWinTools, &WindowTools::onWindowHidden, this, &TrayIcon::onThunderbirdWindowHidden);
+        connect(mWinTools, &WindowTools::onWindowShown, this, &TrayIcon::onBetterbirdWindowShown);
+        connect(mWinTools, &WindowTools::onWindowHidden, this, &TrayIcon::onBetterbirdWindowHidden);
     }
     createMenu();
     createUnreadCounterThread();
@@ -92,7 +92,7 @@ TrayIcon::~TrayIcon() {
         settingsDialog->deleteLater();
     }
 #ifdef Q_OS_WIN
-    mThunderbirdUpdaterProcess->deleteLater();
+    mBetterbirdUpdaterProcess->deleteLater();
 #endif /* Q_OS_WIN */
     if (networkConnectivityManager != nullptr) {
         networkConnectivityManager->deleteLater();
@@ -240,7 +240,7 @@ void TrayIcon::updateIcon()
     p.setFont(settings->mNotificationFont);
 
     // Do we need to draw error sign?
-    if (settings->mMonitorThunderbirdWindow && !mThunderbirdWindowExists) {
+    if (settings->mMonitorBetterbirdWindow && !mBetterbirdWindowExists) {
         p.setOpacity( 1.0 );
         QPen pen( Qt::red );
         pen.setWidth( (temp.width() * 10) / 100 );
@@ -364,48 +364,48 @@ void TrayIcon::updateState()
 
     if ( mWinTools )
     {
-        mThunderbirdWindowExists = mWinTools->lookup();
+        mBetterbirdWindowExists = mWinTools->lookup();
 
-        // Is Thunderbird running?
-        if ( mThunderbirdWindowExists )
+        // Is Betterbird running?
+        if ( mBetterbirdWindowExists )
         {
             // If the window is found, we remember it
-            if ( !mThunderbirdWindowExisted )
-                mThunderbirdWindowExisted = true;
+            if ( !mBetterbirdWindowExisted )
+                mBetterbirdWindowExisted = true;
 
-            if ( !mMenuShowHideThunderbird->isEnabled() )
-                mMenuShowHideThunderbird->setEnabled( true );
+            if ( !mMenuShowHideBetterbird->isEnabled() )
+                mMenuShowHideBetterbird->setEnabled( true );
 
             // Hide the window if requested
-            if ( mThunderbirdWindowHide )
+            if ( mBetterbirdWindowHide )
             {
-                mThunderbirdWindowHide = false;
-                hideThunderbird();
+                mBetterbirdWindowHide = false;
+                hideBetterbird();
             }
         }
         else
         {
             Settings* settings = BirdtrayApp::get()->getSettings();
-            // Thunderbird is not running. Has it run before?
-            if (!mThunderbirdWindowExisted) {
+            // Betterbird is not running. Has it run before?
+            if (!mBetterbirdWindowExisted) {
                 // No. Shall we start it?
-                if (settings->mLaunchThunderbird && !mThunderbirdProcess &&
-                    mThunderbirdStartTime < QDateTime::currentDateTime()) {
-                    startThunderbird();
+                if (settings->mLaunchBetterbird && !mBetterbirdProcess &&
+                    mBetterbirdStartTime < QDateTime::currentDateTime()) {
+                    startBetterbird();
 
                     // Hide after?
                     if (settings->mHideWhenStarted) {
-                        mThunderbirdWindowHide = true;
+                        mBetterbirdWindowHide = true;
                     }
                 }
             } else {
                 // It has run before, but not running now. Should we restart?
-                if (settings->mRestartThunderbird && !mThunderbirdProcess) {
-                    startThunderbird();
+                if (settings->mRestartBetterbird && !mBetterbirdProcess) {
+                    startBetterbird();
 
                     // Hide after?
                     if (settings->mHideWhenRestarted) {
-                        mThunderbirdWindowHide = true;
+                        mBetterbirdWindowHide = true;
                     }
                 }
             }
@@ -413,9 +413,9 @@ void TrayIcon::updateState()
 
         // Update the menu text as the window can be hidden in wintools
         if ( mWinTools->isHidden() )
-            mMenuShowHideThunderbird->setText( tr("Show Thunderbird") );
+            mMenuShowHideBetterbird->setText( tr("Show Betterbird") );
         else
-            mMenuShowHideThunderbird->setText( tr("Hide Thunderbird") );
+            mMenuShowHideBetterbird->setText( tr("Hide Betterbird") );
 
         updateIcon();
     }
@@ -483,7 +483,7 @@ void TrayIcon::showSettings()
         // Recalculate the delta
         enableBlinking( false );
         updateIcon();
-        // TODO: Update on thunderbird path setting change
+        // TODO: Update on betterbird path setting change
 
         emit settingsChanged();
     });
@@ -496,15 +496,15 @@ void TrayIcon::actionActivate()
         return;
 
     Settings* settings = BirdtrayApp::get()->getSettings();
-    if ( settings->startClosedThunderbird && !mWinTools->lookup() ) {
-        startThunderbird();
+    if ( settings->startClosedBetterbird && !mWinTools->lookup() ) {
+        startBetterbird();
         if (settings->hideWhenStartedManually) {
-            mThunderbirdWindowHide = true;
+            mBetterbirdWindowHide = true;
         }
     } else if ( mWinTools->isHidden() ) {
-        showThunderbird();
+        showBetterbird();
     } else {
-        hideThunderbird();
+        hideBetterbird();
     }
 }
 
@@ -541,7 +541,7 @@ void TrayIcon::actionNewEmail() {
     QString executable;
     QStringList args;
 
-    if ( !settings->getStartThunderbirdCmdline( executable, args ) )
+    if ( !settings->getStartBetterbirdCmdline( executable, args ) )
         return;
 
     args << "-compose";
@@ -568,7 +568,7 @@ void TrayIcon::actionIgnoreEmails()
 void TrayIcon::actionSystrayIconActivated(QSystemTrayIcon::ActivationReason reason) {
     if (reason == QSystemTrayIcon::Trigger) {
         Settings* settings = BirdtrayApp::get()->getSettings();
-        if (settings->mShowHideThunderbird || (!mThunderbirdWindowExists && settings->startClosedThunderbird)) {
+        if (settings->mShowHideBetterbird || (!mBetterbirdWindowExists && settings->startClosedBetterbird)) {
             actionActivate();
         }
     }
@@ -580,13 +580,13 @@ void TrayIcon::createMenu()
     mSystrayMenu->clear();
 
     // Show and hide action
-    mMenuShowHideThunderbird = new QAction( tr("Hide Thunderbird"), this );
-    connect( mMenuShowHideThunderbird, &QAction::triggered, this, &TrayIcon::actionActivate );
+    mMenuShowHideBetterbird = new QAction( tr("Hide Betterbird"), this );
+    connect( mMenuShowHideBetterbird, &QAction::triggered, this, &TrayIcon::actionActivate );
 
     // We start with disabled action, and enable it once the window is detected
-    mMenuShowHideThunderbird->setEnabled( false );
+    mMenuShowHideBetterbird->setEnabled( false );
 
-    mSystrayMenu->addAction( mMenuShowHideThunderbird );
+    mSystrayMenu->addAction( mMenuShowHideBetterbird );
     mSystrayMenu->addSeparator();
 
     // New email could be either a single action, or menu depending on settings
@@ -679,79 +679,79 @@ void TrayIcon::createUnreadCounterThread()
     mUnreadMonitor->start();
 }
 
-void TrayIcon::startThunderbird()
+void TrayIcon::startBetterbird()
 {
     QString executable;
     QStringList args;
 
-    if ( !BirdtrayApp::get()->getSettings()->getStartThunderbirdCmdline( executable, args ) )
+    if ( !BirdtrayApp::get()->getSettings()->getStartBetterbirdCmdline( executable, args ) )
     {
-        Log::debug("Failed to get Thunderbird command-line" );
+        Log::debug("Failed to get Betterbird command-line" );
         return;
     }
 
-    Log::debug("Starting Thunderbird as '%s %s'", qPrintable(executable), qPrintable(args.join(' ')));
+    Log::debug("Starting Betterbird as '%s %s'", qPrintable(executable), qPrintable(args.join(' ')));
 
-    if ( mThunderbirdProcess )
-        mThunderbirdProcess->deleteLater();
+    if ( mBetterbirdProcess )
+        mBetterbirdProcess->deleteLater();
 
-    mThunderbirdProcess = new QProcess();
-    connect( mThunderbirdProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(tbProcessFinished(int,QProcess::ExitStatus)) );
+    mBetterbirdProcess = new QProcess();
+    connect( mBetterbirdProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(bbProcessFinished(int,QProcess::ExitStatus)) );
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
-    connect( mThunderbirdProcess, &QProcess::errorOccurred, this, &TrayIcon::tbProcessError );
+    connect( mBetterbirdProcess, &QProcess::errorOccurred, this, &TrayIcon::bbProcessError );
 #endif
 
-    mThunderbirdProcess->start(executable, args);
+    mBetterbirdProcess->start(executable, args);
 }
 
-void TrayIcon::tbProcessError(QProcess::ProcessError )
+void TrayIcon::bbProcessError(QProcess::ProcessError )
 {
 #ifdef Q_OS_WIN
-    if (mThunderbirdUpdaterProcess->attach() == AttachResult::SUCCESS)
+    if (mBetterbirdUpdaterProcess->attach() == AttachResult::SUCCESS)
     {
         return;
     }
 #endif /* Q_OS_WIN */
 
     QMessageBox::critical(nullptr,
-            tr("Cannot start Thunderbird"),
-            tr("Error starting Thunderbird as '%1 %2':\n\n%3")
-                    .arg( mThunderbirdProcess->program() )
-                    .arg( mThunderbirdProcess->arguments().join(' ') )
-                    .arg( mThunderbirdProcess->errorString()) );
+            tr("Cannot start Betterbird"),
+            tr("Error starting Betterbird as '%1 %2':\n\n%3")
+                    .arg( mBetterbirdProcess->program() )
+                    .arg( mBetterbirdProcess->arguments().join(' ') )
+                    .arg( mBetterbirdProcess->errorString()) );
 
-    // We keep the mThunderbirdProcess pointer, so the process is not restarted again
+    // We keep the mBetterbirdProcess pointer, so the process is not restarted again
 }
 
-void TrayIcon::tbProcessFinished(int, QProcess::ExitStatus)
+void TrayIcon::bbProcessFinished(int, QProcess::ExitStatus)
 {
-    // If we are here this could mean that either Thunderbird was quit manually,
+    // If we are here this could mean that either Betterbird was quit manually,
     // in which case it is restarted in updateState(), or that we started TB
     // and the active instance was activated (and our instance exited).
     // Thus we just destroy the process later, to let updateState() make decision
 #ifdef Q_OS_WIN
-    if (mThunderbirdUpdaterProcess->attach() == AttachResult::SUCCESS) {
+    if (mBetterbirdUpdaterProcess->attach() == AttachResult::SUCCESS) {
         return;
     }
 #endif /* Q_OS_WIN */
-    mThunderbirdProcess->deleteLater();
-    mThunderbirdProcess = nullptr;
+    mBetterbirdProcess->deleteLater();
+    mBetterbirdProcess = nullptr;
 }
 
 #ifdef Q_OS_WIN
-void TrayIcon::tbUpdaterProcessFinished(const ProcessHandle::ExitReason& exitReason)
+void TrayIcon::bbUpdaterProcessFinished(const ProcessHandle::ExitReason& exitReason)
 {
     if (exitReason.isError()) {
         QMessageBox::critical(
-                nullptr, tr("Cannot start Thunderbird"),
-                tr("Error starting Thunderbird, because we could not attach to the updater:\n\n%1")
+                nullptr, tr("Cannot start Betterbird"),
+                tr("Error starting Betterbird, because we could not attach to the updater:\n\n%1")
                 .arg( exitReason.getErrorDescription() ) );
         return;
     }
-    // The updater will start Thunderbird automatically
-    mThunderbirdProcess->deleteLater();
-    mThunderbirdProcess = nullptr;
+    // The updater will start Betterbird automatically
+    mBetterbirdProcess->deleteLater();
+    mBetterbirdProcess = nullptr;
 }
 #endif /* Q_OS_WIN */
 
@@ -759,7 +759,7 @@ void TrayIcon::onQuit() {
     if (mWinTools && mWinTools->isHidden()) {
         mWinTools->show();
     }
-    if (BirdtrayApp::get()->getSettings()->mExitThunderbirdWhenQuit) {
+    if (BirdtrayApp::get()->getSettings()->mExitBetterbirdWhenQuit) {
         if (mWinTools) {
             mWinTools->closeWindow();
         }
@@ -791,26 +791,26 @@ void TrayIcon::onAutoUpdateCheckFinished(bool foundUpdate, const QString &errorM
     }
 }
 
-void TrayIcon::onThunderbirdWindowShown() {
-    mMenuShowHideThunderbird->setText( tr("Hide Thunderbird") );
+void TrayIcon::onBetterbirdWindowShown() {
+    mMenuShowHideBetterbird->setText( tr("Hide Betterbird") );
     if (haveUnreadMailsData && BirdtrayApp::get()->getSettings()->ignoreUnreadCountOnShow) {
         setIgnoredUnreadMails(mUnreadCounter);
     }
 }
 
-void TrayIcon::onThunderbirdWindowHidden() {
-    mMenuShowHideThunderbird->setText( tr("Show Thunderbird") );
+void TrayIcon::onBetterbirdWindowHidden() {
+    mMenuShowHideBetterbird->setText( tr("Show Betterbird") );
     if (haveUnreadMailsData && BirdtrayApp::get()->getSettings()->ignoreUnreadCountOnHide) {
         setIgnoredUnreadMails(mUnreadCounter);
     }
 }
 
-void TrayIcon::hideThunderbird()
+void TrayIcon::hideBetterbird()
 {
     mWinTools->hide();
 }
 
-void TrayIcon::showThunderbird()
+void TrayIcon::showBetterbird()
 {
     mWinTools->show();
 }
